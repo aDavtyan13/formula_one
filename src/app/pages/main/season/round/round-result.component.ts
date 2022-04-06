@@ -44,11 +44,15 @@ export class RoundResultComponent implements OnInit {
     this.paginationArray = Array(pageCount).fill(0).map((x, i) => ({number: (i + 1)}));
   }
 
+  private setResults(): void {
+    this.results = this.roundResultsData?.RaceTable?.Races.shift()?.Results;
+  }
+
   public getRoundData(): void {
     this.roundResultApiService.getRaceDrivers(this.year, this.round, this.filterOptions).subscribe(data => {
       this.roundResultsData = data.MRData;
       this.totalItems = this.roundResultsData.total;
-      this.results = this.roundResultsData?.RaceTable?.Races.shift()?.Results;
+      this.setResults();
       this.getPaginationInfo();
     });
   }
