@@ -1,0 +1,38 @@
+<div class="season-page">
+  <div class="back-button" [routerLink]="['/']">
+    <button class="btn btn-outline-success">Back</button>
+  </div>
+  <h2 class="season-page--header">Schedule</h2>
+  <h4 class="season-page--subheader">Season <span class="season-page--subheader--element">{{year}}</span></h4>
+  <div class="schedule-table" [ngClass]="{'schedule-table--with-pagination': totalItems > filterOptions.limit}">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Season</th>
+        <th>Round</th>
+        <th>Race name</th>
+        <th>Date</th>
+        <th>Circuit</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let race of scheduleData?.RaceTable?.Races">
+        <td>{{race?.season}}</td>
+        <td>
+          <a [routerLink]="['./', race?.round]">{{race?.round}}</a>
+        </td>
+        <td>{{race?.raceName}}</td>
+        <td>{{race?.date}}</td>
+        <td>
+          <a href="https://www.google.com/maps?q={{getLocations(race)}}"
+             target="_blank">{{race?.Circuit?.circuitName}}</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <app-pagination *ngIf="totalItems > filterOptions.limit"
+                  [pages]="paginationArray"
+                  (updatedFilterOptionsEmit)="getSchedule()"
+                  [filterOptions]="filterOptions"></app-pagination>
+</div>

@@ -1,0 +1,53 @@
+<div class="round-page">
+  <div class="back-button" [routerLink]="['/' + routes?.SEASON, year]">
+    <button class="btn btn-outline-success">Back</button>
+  </div>
+  <h2 class="round-page--header">Schedule</h2>
+  <div class="d-flex align-items-center justify-content-center">
+    <h4 class="round-page--subheader me-5">Season - <span class="round-page--subheader--element">{{year}}</span></h4>
+    <h4 class="round-page--subheader">Round - <span class="round-page--subheader--element">{{round}}</span></h4>
+  </div>
+  <div class="round-table" [ngClass]="{'round-table--with-pagination': totalItems > filterOptions.limit}">
+    <div *ngIf="!results" class="round-table--empty">
+      <p class="round-table--empty--text">List is empty</p>
+    </div>
+    <table *ngIf="results" class="table">
+      <thead>
+      <tr>
+        <th>Position</th>
+        <th>Number</th>
+        <th>Driver</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let result of results">
+        <td>{{result?.position}}</td>
+        <td>{{result?.number}}</td>
+        <td>
+          <div class="driver-info-block">
+            <a [routerLink]="['/' + routes?.DRIVERS, result?.Driver?.driverId]">{{result?.Driver?.givenName}}</a>
+            <div class="driver-info-block--item">
+              <div class="driver-info--item">
+                <label class="driver-info--label">Name</label>
+                <p class="driver-info--text">{{result?.Driver?.givenName}} {{result?.Driver?.familyName}}</p>
+              </div>
+              <div class="driver-info--item">
+                <label class="driver-info--label">Nationality</label>
+                <p class="driver-info--text">{{result?.Driver?.nationality}}</p>
+              </div>
+              <div class="driver-info--item">
+                <label class="driver-info--label">Date of Birth</label>
+                <p class="driver-info--text">{{result?.Driver?.dateOfBirth}}</p>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <app-pagination *ngIf="totalItems > filterOptions.limit"
+                  [pages]="paginationArray"
+                  (updatedFilterOptionsEmit)="getRoundData()"
+                  [filterOptions]="filterOptions"></app-pagination>
+</div>
