@@ -40,3 +40,11 @@ export interface ILocation {
   lat: number;
   long: number;
 }
+
+export interface ISeason {
+  season: number;
+}
+
+export interface IData {
+  MRData: any;
+}

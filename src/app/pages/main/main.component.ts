@@ -3,8 +3,8 @@ import {Router} from '@angular/router';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import {IFilter} from 'app/@core/interfaces/IFilter';
-import {ISeason} from 'app/@core/interfaces/ISeason';
 import {RouteEnum} from 'app/@core/enums/route.enum';
+import {ISeason} from 'app/@core/interfaces/ISchedule';
 import {SeasonsApiService} from 'app/@core/services/api/seasons.service';
 
 @Component({

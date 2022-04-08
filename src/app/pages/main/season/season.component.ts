@@ -4,7 +4,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import {IFilter} from 'app/@core/interfaces/IFilter';
 import {RouteEnum} from 'app/@core/enums/route.enum';
-import {ISchedule} from 'app/@core/interfaces/ISchedule';
+import {IRaces, ISchedule} from 'app/@core/interfaces/ISchedule';
 import {IPagination} from 'app/@core/interfaces/IPagination';
 import {ScheduleApiService} from 'app/@core/services/api/schedule.service';
 
@@ -48,7 +48,7 @@ export class SeasonComponent implements OnInit, OnDestroy {
     });
   }
 
-  public getLocations(race: any): string {
+  public getLocations(race: IRaces): string {
     return `${race?.Circuit?.Location.lat}, ${race?.Circuit?.Location.long}`;
   }
 }

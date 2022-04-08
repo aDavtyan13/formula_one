@@ -2,24 +2,40 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {DropdownDirective} from 'app/@theme/directives/dropdown.directive';
-import {PaginationComponent} from 'app/@theme/components/pagination/pagination.component';
 import {RoundResultApiService} from 'app/@core/services/api/round-result.service';
+import {PaginationComponent} from 'app/@theme/components/pagination/pagination.component';
+
+export const COMPONENTS = [
+  PaginationComponent
+];
+
+export const DIRECTIVES = [
+  DropdownDirective
+];
+
+export const MODULES = [
+  CommonModule
+];
+
+export const SERVICES = [
+  RoundResultApiService
+];
 
 @NgModule({
   declarations: [
-    DropdownDirective,
-    PaginationComponent
+    ...COMPONENTS,
+    ...DIRECTIVES
   ],
   imports: [
-    CommonModule
+    ...MODULES
   ],
   exports: [
-    CommonModule,
-    DropdownDirective,
-    PaginationComponent
+    ...MODULES,
+    ...COMPONENTS,
+    ...DIRECTIVES
   ],
   providers: [
-    RoundResultApiService
+    ...SERVICES
   ]
 })
 export class ThemeModule {}
