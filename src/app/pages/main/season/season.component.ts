@@ -1,5 +1,6 @@
+import {Subscription} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import {IFilter} from 'app/@core/interfaces/IFilter';
 import {RouteEnum} from 'app/@core/enums/route.enum';
@@ -11,7 +12,9 @@ import {ScheduleApiService} from 'app/@core/services/api/schedule.service';
   selector: 'app-season',
   templateUrl: './season.component.html'
 })
-export class SeasonComponent implements OnInit {
+export class SeasonComponent implements OnInit, OnDestroy {
+  private subscription!: Subscription;
+
   public filterOptions: IFilter = {
     limit: 15,
     offset: 0
@@ -30,20 +33,18 @@ export class SeasonComponent implements OnInit {
     this.getSchedule();
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   private getInitialData(): void {
     this.year = this.activeRoute.snapshot.params['year'];
   }
 
-  private getPaginationInfo(): void {
-    const pageCount: number = Math.ceil(this.scheduleData?.total / this.filterOptions.limit);
-    this.paginationArray = Array(pageCount).fill(0).map((x, i) => ({ number: (i + 1)}));
-  }
-
   public getSchedule(): void {
-    this.scheduleApiService.getSchedule(this.year, this.filterOptions).subscribe(data => {
+    this.subscription = this.scheduleApiService.getSchedule(this.year, this.filterOptions).subscribe(data => {
       this.scheduleData = data.MRData;
       this.totalItems = this.scheduleData.total;
-      this.getPaginationInfo();
     });
   }
 

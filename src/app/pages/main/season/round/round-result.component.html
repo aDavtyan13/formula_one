@@ -47,7 +47,7 @@
     </table>
   </div>
   <app-pagination *ngIf="totalItems > filterOptions.limit"
-                  [pages]="paginationArray"
+                  [pagesCount]="totalItems"
                   (updatedFilterOptionsEmit)="getRoundData()"
                   [filterOptions]="filterOptions"></app-pagination>
 </div>

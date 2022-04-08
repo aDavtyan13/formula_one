@@ -32,7 +32,7 @@
     </table>
   </div>
   <app-pagination *ngIf="totalItems > filterOptions.limit"
-                  [pages]="paginationArray"
+                  [pagesCount]="totalItems"
                   (updatedFilterOptionsEmit)="getSchedule()"
                   [filterOptions]="filterOptions"></app-pagination>
 </div>

@@ -36,10 +36,14 @@ export class MainComponent implements OnInit, OnDestroy {
 
   private getYears(): void {
     this.subscription = this.seasonsApiService.getSeasons(this.filterOptions).subscribe(data => {
-      this.seasons = data.MRData.SeasonTable.Seasons;
+      if (this.seasons) {
+        this.seasons.push(...data.MRData.SeasonTable.Seasons);
 
-      if (this.filterOptions.limit !== this.seasons.length) {
-        this.isLoadMoreAvailable = false;
+        if (this.filterOptions.offset + this.filterOptions.limit > this.seasons.length) {
+          this.isLoadMoreAvailable = false;
+        }
+      } else {
+        this.seasons = data.MRData.SeasonTable.Seasons;
       }
     });
   }
@@ -55,9 +59,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   public loadMoreYears(): void {
-    while (this.filterOptions.limit === this.seasons.length) {
-      this.filterOptions.limit += 10;
-      this.getYears();
-    }
+    this.filterOptions.offset += 10;
+    this.getYears();
   }
 }
