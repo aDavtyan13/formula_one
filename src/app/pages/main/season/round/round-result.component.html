@@ -8,10 +8,10 @@
     <h4 class="round-page--subheader">Round - <span class="round-page--subheader--element">{{round}}</span></h4>
   </div>
   <div class="round-table" [ngClass]="{'round-table--with-pagination': totalItems > filterOptions.limit}">
-    <div *ngIf="!results" class="round-table--empty">
+    <div *ngIf="!data && !isLoading" class="round-table--empty">
       <p class="round-table--empty--text">List is empty</p>
     </div>
-    <table *ngIf="results" class="table">
+    <table *ngIf="data && !isLoading" class="table">
       <thead>
       <tr>
         <th>Position</th>
@@ -20,7 +20,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let result of results">
+      <tr *ngFor="let result of data">
         <td>{{result?.position}}</td>
         <td>{{result?.number}}</td>
         <td>
@@ -45,9 +45,12 @@
       </tr>
       </tbody>
     </table>
+    <div *ngIf="isLoading" class="loader-block">
+      <div class="loader"></div>
+    </div>
   </div>
   <app-pagination *ngIf="totalItems > filterOptions.limit"
                   [pagesCount]="totalItems"
-                  (updatedFilterOptionsEmit)="getRoundData()"
+                  (updatedFilterOptionsEmit)="getData()"
                   [filterOptions]="filterOptions"></app-pagination>
 </div>

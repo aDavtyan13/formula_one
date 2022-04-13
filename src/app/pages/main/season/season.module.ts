@@ -8,8 +8,8 @@ import {RoundResultComponent} from 'app/pages/main/season/round/round-result.com
 
 @NgModule({
   declarations: [
-    RoundResultComponent,
-    SeasonComponent
+    SeasonComponent,
+    RoundResultComponent
   ],
   imports: [
     ThemeModule,

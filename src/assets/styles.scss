@@ -87,11 +87,16 @@ p {
 }
 
 .schedule-table, .round-table {
+  position: relative;
   overflow: auto;
   height: calc(100vh - 2rem - 46px - 38px);
 
   &--with-pagination {
     height: calc(100vh - 2rem - 46px - 38px - 38px - 1rem);
+  }
+
+  .fa-location-dot {
+    color: seagreen;
   }
 
   &--empty {
@@ -162,6 +167,7 @@ p {
   cursor: pointer;
   text-align: center;
   color: seagreen;
+  position: relative;
 }
 
 .table {
@@ -202,14 +208,66 @@ p {
   }
 }
 
-.dropdown-menu {
-  padding: .5rem;
-  flex-wrap: wrap;
-  width: 260px;
-  max-height: 200px;
-  overflow: auto;
+.dropdown {
+  &.open {
+    .dropdown-menu {
+      display: block;
+    }
+  }
 
-  .btn {
-    margin: .5rem;
+  .dropdown-menu {
+    padding: .5rem;
+    flex-wrap: wrap;
+    width: 260px;
+    max-height: 200px;
+    overflow: auto;
+
+    .btn {
+      margin: .5rem;
+    }
+  }
+}
+
+.loader-block {
+  background-color: #fff;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //height: calc(100vh - 50px - 38px - 2rem);
+  height: 100%;
+  width: 100%;
+  //width: calc(100% - 2rem);
+
+  .loader {
+    position: relative;
+
+    &.loader--sm {
+      &:before {
+        height: 1rem;
+        width: 1rem;
+      }
+    }
+
+    &:before {
+      content: '';
+      box-sizing: border-box;
+      position: absolute;
+      height: 2rem;
+      width: 2rem;
+      border-radius: 50%;
+      border: 2px solid seagreen;
+      border-right: 2px solid transparent;
+    }
+
+    &:before {
+      animation: animation-spinner .5s linear infinite;
+    }
+  }
+}
+
+@keyframes animation-spinner {
+  to {
+    transform: rotate(360deg);
   }
 }

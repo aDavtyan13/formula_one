@@ -1,0 +1,27 @@
+<div class="main-block">
+  <h1 class="main-block--header">Formula 1</h1>
+  <div class="main-block--actions">
+    <button type="button" class="btn btn-success me-4" (click)="selectYear()">
+      Current year
+    </button>
+    <div class="dropdown" dropdown>
+      <button type="button" class="btn btn-outline-success dropdown-toggle">
+        Choose year
+      </button>
+      <div class="dropdown-menu">
+        <div>
+          <button *ngFor="let season of seasons"
+                  (click)="selectYear(season?.season)"
+                  type="button" class="btn btn-success" >
+            {{season?.season}}
+          </button>
+          <div *ngIf="isLoadMoreAvailable" class="load-more js-clickable-btn" (click)="loadMoreYears()">
+            <div *ngIf="isLoading" class="loader-block">
+              <div class="loader loader--sm"></div>
+            </div>
+            Load more</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

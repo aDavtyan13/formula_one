@@ -5,7 +5,7 @@
   <h2 class="season-page--header">Schedule</h2>
   <h4 class="season-page--subheader">Season <span class="season-page--subheader--element">{{year}}</span></h4>
   <div class="schedule-table" [ngClass]="{'schedule-table--with-pagination': totalItems > filterOptions.limit}">
-    <table class="table">
+    <table *ngIf="!isLoading" class="table">
       <thead>
       <tr>
         <th>Season</th>
@@ -16,7 +16,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let race of scheduleData?.RaceTable?.Races">
+      <tr *ngFor="let race of data?.RaceTable?.Races">
         <td>{{race?.season}}</td>
         <td>
           <a [routerLink]="['./', race?.round]">{{race?.round}}</a>
@@ -24,15 +24,21 @@
         <td>{{race?.raceName}}</td>
         <td>{{race?.date}}</td>
         <td>
-          <a href="https://www.google.com/maps?q={{getLocations(race)}}"
-             target="_blank">{{race?.Circuit?.circuitName}}</a>
+          <div class="d-flex align-items-center">
+            <i class="fa-solid fa-location-dot me-2"></i>
+            <a href="https://www.google.com/maps?q={{getLocations(race)}}"
+               target="_blank">{{race?.Circuit?.circuitName}}</a>
+          </div>
         </td>
       </tr>
       </tbody>
     </table>
+    <div *ngIf="isLoading" class="loader-block">
+      <div class="loader"></div>
+    </div>
   </div>
   <app-pagination *ngIf="totalItems > filterOptions.limit"
                   [pagesCount]="totalItems"
-                  (updatedFilterOptionsEmit)="getSchedule()"
+                  (updatedFilterOptionsEmit)="getData()"
                   [filterOptions]="filterOptions"></app-pagination>
 </div>
